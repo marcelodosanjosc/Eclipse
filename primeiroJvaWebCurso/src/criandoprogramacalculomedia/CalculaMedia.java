@@ -21,7 +21,7 @@ public class CalculaMedia {
 			if (media >=70) {
 				JOptionPane.showMessageDialog(null, "Aluno aprovado Media: " +media);
 			}else {
-				JOptionPane.showMessageDialog(null, "Aluno em recuperaÃ§Ã£o Media: " +media);
+				JOptionPane.showMessageDialog(null, "Aluno em recuperação Media: " +media);
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Aluno reprovado Media: " +media);
