@@ -3,6 +3,8 @@ package criadoclassealunoetc;
 import java.util.ArrayList;
 import java.util.List;
 
+import criandoconstantesstaticos.StatusAluno;
+
 public class Aluno {
 	private String nome;
 	private int idade;
@@ -111,12 +113,12 @@ public class Aluno {
 		double media = this.getMediaNota();
 		if(media >= 50) {
 			if (media >= 70) {
-				return "Aprovado";	
+				return StatusAluno.APROVADO;	
 			}else {
-				return "Em recuperação";
+				return StatusAluno.RECUPERACAO;
 			}
 		}else {
-			return "Reprovado";
+			return StatusAluno.REPROVADO;
 		}
 	}
 	@Override

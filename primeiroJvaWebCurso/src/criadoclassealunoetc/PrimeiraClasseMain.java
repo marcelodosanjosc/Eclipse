@@ -1,14 +1,35 @@
 package criadoclassealunoetc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+
+import criandoconstantesstaticos.StatusAluno;
+
 public class PrimeiraClasseMain {
 
 	public static void main(String[] args) {
+		
+		// login
+		String login = JOptionPane.showInputDialog(" Informe o login ");
+		String senha = JOptionPane.showInputDialog(" Informe a senha ");
+		
+		if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
+			
+		
+		
+		
 		List<Aluno> alunos = new ArrayList<Aluno>();
+		
+		// 
+		HashMap<String, List<Aluno>> maps = new HashMap<String, List<Aluno>>();
+		// lista separada
+		List<Aluno> alunosAprovado = new ArrayList<Aluno>();
+		List<Aluno> alunosRecuperacao = new ArrayList<Aluno>();
+		List<Aluno> alunosReprovado = new ArrayList<Aluno>();
 		
 		for (int quatidade = 1; quatidade <=2;quatidade++ ) {
 		
@@ -39,7 +60,7 @@ public class PrimeiraClasseMain {
 		
 		// para add as discipina na lista
 		
-		for (int pos = 1; pos <= 4;pos++) {
+		for (int pos = 1; pos <= 1;pos++) {
 			String disc = JOptionPane.showInputDialog("Nome da Disciplina "+pos+" ?");
 			String nota = JOptionPane.showInputDialog("Digite a Nota "+pos+" ?");
 			Disciplina disciplina = new Disciplina();
@@ -65,9 +86,94 @@ public class PrimeiraClasseMain {
 		
 		aluno1.getMediaNota();
 		 alunos.add(aluno1);
+		 
 		}
-		// imprimindo todos 
+		
+		maps.put(StatusAluno.APROVADO, new ArrayList<Aluno>());
+		maps.put(StatusAluno.RECUPERACAO, new ArrayList<Aluno>());
+		maps.put(StatusAluno.REPROVADO, new ArrayList<Aluno>());
+		// add na lista separada 
 		for (Aluno aluno : alunos) {
+			if (aluno.getAlunoAprvado().equalsIgnoreCase(StatusAluno.APROVADO)) {
+				maps.get(StatusAluno.APROVADO).add(aluno);
+			}else if (aluno.getAlunoAprvado().equalsIgnoreCase(StatusAluno.RECUPERACAO)) {
+				maps.get(StatusAluno.RECUPERACAO).add(aluno);
+			}else if (aluno.getAlunoAprvado().equalsIgnoreCase(StatusAluno.REPROVADO)) {
+				maps.get(StatusAluno.REPROVADO).add(aluno);
+			}
+		}
+		
+		
+		System.out.println(" ------- Lista de aprovados ---------- ");
+		for (Aluno aluno : maps.get(StatusAluno.APROVADO)) {
+			System.out.println(" Nome do aluno: "+aluno.getNome());
+			System.out.println("Resultado: "+ aluno.getAlunoAprvado() + " com media: "+ aluno.getMediaNota());
+		}
+		
+		System.out.println(" ------- Lista de recuperação ---------- ");
+		for (Aluno aluno : maps.get(StatusAluno.RECUPERACAO)) {
+			System.out.println(" Nome do aluno: "+aluno.getNome());
+			System.out.println("Resultado: "+ aluno.getAlunoAprvado() + " com media: "+ aluno.getMediaNota());
+		}
+		
+		System.out.println(" ------- Lista de reprovados ---------- ");
+		for (Aluno aluno : maps.get(StatusAluno.REPROVADO)) {
+			System.out.println(" Nome do aluno: "+aluno.getNome());
+			System.out.println("Resultado: "+ aluno.getAlunoAprvado() + " com media: "+ aluno.getMediaNota());
+		}
+		
+		/*
+		// percorrendo a lista 
+		for (int pos = 0; pos < alunos.size(); pos++) {
+			Aluno aluno = alunos.get(pos);
+			System.out.println("Nome do aluno: "+aluno.getNome());
+			System.out.println("Media é: "+aluno.getMediaNota());
+			System.out.println(" Resultado: "+aluno.getAlunoAprvado());
+			System.out.println(" ---- -- -------------------  -- --- --- ---");
+			 	// percorrendo a disciplina 
+				for (int posd = 0; posd < aluno.getDisciplinas().size();posd++) {
+						Disciplina disciplina = aluno.getDisciplinas().get(posd);
+						System.out.println(" Materia: " + disciplina.getDisciplina()+ " Nota: "+ disciplina.getNota());
+						System.out.println("----------- ----------- ---------- -------");
+				}
+		}
+		// para substitui para outro objeto
+			System.out.println("---- Trocando Aluno -------");
+		for (int pos = 0; pos < alunos.size(); pos++) {
+			
+			Aluno aluno = alunos.get(pos);
+			if (aluno.getNome().equalsIgnoreCase("marcelo")) {
+				Aluno trocar = new Aluno();
+				trocar.setNome("Aluno fo trocado");
+				
+				Disciplina disciplina = new Disciplina();
+				disciplina.setDisciplina(" PHP ");
+				disciplina.setNota(89);
+				
+				trocar.getDisciplinas().add(disciplina);
+				
+				alunos.set(pos, trocar);
+				aluno = alunos.get(pos);
+			}
+			System.out.println("Nome do aluno: "+aluno.getNome());
+			System.out.println("Media é: "+aluno.getMediaNota());
+			System.out.println(" Resultado: "+aluno.getAlunoAprvado());
+			System.out.println(" ---- -- -------------------  -- --- --- ---");
+			 	// percorrendo a disciplina 
+				for (int posd = 0; posd < aluno.getDisciplinas().size();posd++) {
+						Disciplina disciplina = aluno.getDisciplinas().get(posd);
+						System.out.println(" Materia: " + disciplina.getDisciplina()+ " Nota: "+ disciplina.getNota());
+						System.out.println("----------- ----------- ---------- -------");
+				}
+		}
+		
+		*/
+		
+		
+		
+		
+		// imprimindo todos 
+		/*for (Aluno aluno : alunos) {
 			
 			
 			System.out.println(aluno.toString());
@@ -116,7 +222,10 @@ public class PrimeiraClasseMain {
 					 System.out.println(disciplina.getDisciplina());
 					 
 				 }
-			}
+			}*/
+	}else {
+		System.out.println(" login ou senha incorretas !!");
 	}
-
+	
+	}
 }
