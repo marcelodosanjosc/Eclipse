@@ -6,18 +6,24 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
+import criandoclasseauxilia.FuncaoAutenticacao;
 import criandoconstantesstaticos.StatusAluno;
+import criandointerfaces.PermitirAcesso;
 
 public class PrimeiraClasseMain {
 
 	public static void main(String[] args) {
+		try {
 		
 		// login
 		String login = JOptionPane.showInputDialog(" Informe o login ");
 		String senha = JOptionPane.showInputDialog(" Informe a senha ");
+	
 		
-		if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
+		
+		PermitirAcesso permitirAcesso = new Secretario(login, senha);
+		
+		if (new FuncaoAutenticacao(permitirAcesso).autenticarCursoJava()) {
 			
 		
 		
@@ -65,12 +71,12 @@ public class PrimeiraClasseMain {
 			String nota = JOptionPane.showInputDialog("Digite a Nota "+pos+" ?");
 			Disciplina disciplina = new Disciplina();
 			disciplina.setDisciplina(disc);
-			disciplina.setNota(Double.parseDouble(nota));
+		//	disciplina.setNota((Double.parseDouble(nota)));
 			aluno1.getDisciplinas().add(disciplina);
 			
 		}
 		
-		int escolha = JOptionPane.showConfirmDialog(null, "Deseja remover alguma disciplina ? ");
+		/*int escolha = JOptionPane.showConfirmDialog(null, "Deseja remover alguma disciplina ? ");
 		
 		if (escolha == 0) {
 			int continuaRemover = 0;
@@ -82,7 +88,7 @@ public class PrimeiraClasseMain {
 					continuaRemover = JOptionPane.showConfirmDialog(null, "Continuar a remover ?");
 				}
 		}
-		
+		*/
 		
 		aluno1.getMediaNota();
 		 alunos.add(aluno1);
@@ -224,8 +230,28 @@ public class PrimeiraClasseMain {
 				 }
 			}*/
 	}else {
+		JOptionPane.showMessageDialog(null, " login ou senha incorretas !!");
 		System.out.println(" login ou senha incorretas !!");
 	}
 	
+	} catch (NumberFormatException e) {
+		e.printStackTrace();
+		
+		JOptionPane.showMessageDialog(null, "Erro ");
+	} catch (NullPointerException e) {
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "opa um null positer :"+e.getClass());
+	} catch (Exception e) {
+		StringBuilder saida = new StringBuilder();
+		e.printStackTrace();
+		for (int i = 0; i< e.getStackTrace().length; i++) {
+			saida.append("\n Classe de erro : " +e.getStackTrace()[i].getClassName());
+			saida.append("\n Metodo de erro : " +e.getStackTrace()[i].getMethodName());
+			saida.append("\n Linha de erro : " +e.getStackTrace()[i].getLineNumber());
+			saida.append("\n Classe2 de erro : " +e.getClass().getName());
+		}
+		JOptionPane.showMessageDialog(null, "Erro ");
+	}
+		
 	}
 }
